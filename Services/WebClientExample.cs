@@ -2,10 +2,10 @@ using System;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
 using System.Web;
 using BattleOfRestClients.Interfaces;
 using BattleOfRestClients.Models;
-using Newtonsoft.Json;
 
 namespace BattleOfRestClients.Services
 {
@@ -28,7 +28,7 @@ namespace BattleOfRestClients.Services
 
             var result = _client.DownloadString("characters?" + request.ToString());
 
-            return JsonConvert.DeserializeObject<Hero>(result);
+            return JsonSerializer.Deserialize<Hero>(result);
         }
 
         public string CreateHash(string ts, string publicKey, string privateKey)
