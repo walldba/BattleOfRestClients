@@ -21,7 +21,7 @@ namespace BattleOfRestClients.Services
         {
             var ts = DateTime.Now.Ticks.ToString();
             var request = HttpUtility.ParseQueryString(string.Empty);
-            request.Set("name", "Wolverine");
+            request.Set("name", name);
             request.Set("ts", ts);
             request.Set("apikey", "295fe85fa0d9c2aad016f22522177752");
             request.Set("hash", CreateHash(ts, "295fe85fa0d9c2aad016f22522177752", "1f85b14d20cad3d3253510f53514c31cafea5bdc"));

@@ -18,19 +18,19 @@ namespace BattleOfRestClients.Controllers
 
         public IActionResult RestSharp()
         {
-            var hero = new RestSharpExample().GetHero("Wolverine");
+            var hero = new RestSharpExample().GetHero("Thor");
             return View("Hero", hero);
         }
 
         public IActionResult HttpClient()
         {
-            var hero = new HttpClientExample().GetHero("Wolverine");
+            var hero = new HttpClientExample().GetHero("Hulk");
             return View("Hero", hero);
         }
 
         public IActionResult WebClient()
         {
-            var hero = new WebClientExample().GetHero("Wolverine");
+            var hero = new WebClientExample().GetHero("Thanos");
             return View("Hero", hero);
         }
 

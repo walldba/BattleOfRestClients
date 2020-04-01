@@ -16,7 +16,7 @@ namespace BattleOfRestClients.Services
         {
             var ts = DateTime.Now.Ticks.ToString();
             var request = new RestRequest("characters");
-            request.AddQueryParameter("name", "Wolverine");
+            request.AddQueryParameter("name", name);
             request.AddQueryParameter("ts", ts);
             request.AddQueryParameter("apikey", "295fe85fa0d9c2aad016f22522177752");
             request.AddQueryParameter("hash", CreateHash(ts, "295fe85fa0d9c2aad016f22522177752", "1f85b14d20cad3d3253510f53514c31cafea5bdc"));
