@@ -15,25 +15,25 @@ namespace BattleOfRestClients.Controllers
         {
             return View();
         }
-
+        [Route("RestSharp")]
         public IActionResult RestSharp()
         {
             var hero = new RestSharpExample().GetHero("Thor");
             return View("Hero", hero);
         }
-
+        [Route("HttpClient")]
         public IActionResult HttpClient()
         {
             var hero = new HttpClientExample().GetHero("Hulk");
             return View("Hero", hero);
         }
-
+        [Route("WebClient")]
         public IActionResult WebClient()
         {
             var hero = new WebClientExample().GetHero("Thanos");
             return View("Hero", hero);
         }
-
+        [Route("RestEase")]
         public IActionResult RestEase()
         {
             var hero = new RestEaseExample().GetHero("Wolverine");
