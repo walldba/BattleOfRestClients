@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using BattleOfRestClients.Models;
+using BattleOfRestClients.Services;
 
 namespace BattleOfRestClients.Controllers
 {
@@ -15,23 +16,28 @@ namespace BattleOfRestClients.Controllers
             return View();
         }
 
-        public IActionResult About()
+        public IActionResult RestSharp()
         {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
+            var hero = new RestSharpExample().GetHero("Wolverine");
+            return View("Hero", hero);
         }
 
-        public IActionResult Contact()
+        public IActionResult HttpClient()
         {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
+            var hero = new HttpClientExample().GetHero("Wolverine");
+            return View("Hero", hero);
         }
 
-        public IActionResult Privacy()
+        public IActionResult WebClient()
         {
-            return View();
+            var hero = new WebClientExample().GetHero("Wolverine");
+            return View("Hero", hero);
+        }
+
+        public IActionResult RestEase()
+        {
+            var hero = new RestEaseExample().GetHero("Wolverine");
+            return View("Hero", hero);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
