@@ -6,11 +6,17 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using BattleOfRestClients.Models;
 using BattleOfRestClients.Services;
+using BattleOfRestClients.Interfaces;
 
 namespace BattleOfRestClients.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IRestSharpExample _restSharp;
+        public HomeController(IRestSharpExample restSharp)
+        {
+            _restSharp = restSharp;
+        }
         public IActionResult Index()
         {
             return View();
@@ -18,7 +24,7 @@ namespace BattleOfRestClients.Controllers
         [Route("RestSharp")]
         public IActionResult RestSharp()
         {
-            var hero = new RestSharpExample().GetHero("Thor");
+            var hero = _restSharp.GetHero("Thor");
             return View("Hero", hero);
         }
         [Route("HttpClient")]
