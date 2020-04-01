@@ -1,0 +1,16 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<h1>Exemplo de utilização - Marvel Comics API</h1>
+
+@model Hero
+
+<div style="overflow: hidden; margin-top: 50px;">
+    <div style="float: left; margin-right: 50px;">
+        <img src=@($"{Model.data.results[0].thumbnail.path}.{Model.data.results[0].thumbnail.extension}") height="200" width="200" />
+    </div>
+    <div style="margin-left: 50px;">
+        <h2><a href="@Model.data.results[0].urls[1].url">@Model.data.results[0].name</a></h2>
+        <p>@Model.data.results[0].description</p>
+    </div>
+</div>
