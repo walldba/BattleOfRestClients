@@ -7,20 +7,31 @@ using Microsoft.AspNetCore.Mvc;
 using BattleOfRestClients.Models;
 using BattleOfRestClients.Services;
 using BattleOfRestClients.Interfaces;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace BattleOfRestClients.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly MarvelConfig _config;
         private readonly IRestSharpExample _restSharp;
-        public HomeController(IRestSharpExample restSharp)
+        private readonly IHttpClientExample _httpClient;
+        private readonly IWebClientExample _webClient;
+        private readonly IRestEaseExample _restEase;
+        public HomeController(IOptions<MarvelConfig> config, IRestSharpExample restSharp, IHttpClientExample httpClient, IWebClientExample webClient, IRestEaseExample restEase)
         {
+            _config = config.Value;
+            _webClient = webClient;
             _restSharp = restSharp;
+            _httpClient = httpClient;
+            _restEase = restEase;
         }
         public IActionResult Index()
         {
             return View();
         }
+
         [Route("RestSharp")]
         public IActionResult RestSharp()
         {
@@ -30,19 +41,19 @@ namespace BattleOfRestClients.Controllers
         [Route("HttpClient")]
         public IActionResult HttpClient()
         {
-            var hero = new HttpClientExample().GetHero("Hulk");
+            var hero =  _httpClient.GetHero("Hulk");
             return View("Hero", hero);
         }
         [Route("WebClient")]
         public IActionResult WebClient()
         {
-            var hero = new WebClientExample().GetHero("Thanos");
+            var hero = _webClient.GetHero("Thanos");
             return View("Hero", hero);
         }
         [Route("RestEase")]
         public IActionResult RestEase()
         {
-            var hero = new RestEaseExample().GetHero("Wolverine");
+            var hero = _restEase.GetHero("Wolverine");
             return View("Hero", hero);
         }
 

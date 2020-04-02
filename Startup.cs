@@ -29,7 +29,10 @@ namespace BattleOfRestClients
         {
             var config = Configuration.GetSection("MarvelConfig");
             services.Configure<MarvelConfig>(config);
-            services.AddTransient<IRestSharpExample, RestSharpExample>();
+            services.AddScoped<IRestEaseExample, RestEaseExample>();
+            services.AddScoped<IWebClientExample, WebClientExample>();
+            services.AddScoped<IRestSharpExample, RestSharpExample>();
+            services.AddScoped<IHttpClientExample, HttpClientExample>();
 
             services.Configure<CookiePolicyOptions>(options =>
             {

@@ -6,16 +6,19 @@ using System.Threading.Tasks;
 using System.Web;
 using BattleOfRestClients.Interfaces;
 using BattleOfRestClients.Models;
+using Microsoft.Extensions.Options;
 
 namespace BattleOfRestClients.Services
 {
     public class HttpClientExample : IHttpClientExample
     {
         private readonly HttpClient _client;
-        public HttpClientExample()
+        private readonly MarvelConfig _config;
+        public HttpClientExample(IOptions<MarvelConfig> config)
         {
+            _config = config.Value;
             _client = new HttpClient();
-            _client.BaseAddress = new Uri("https://gateway.marvel.com:443/v1/public/characters?");
+            _client.BaseAddress = new Uri(_config.BaseUrl + _config.EndPoint);
         }
 
         public Hero GetHero(string name)
@@ -24,8 +27,8 @@ namespace BattleOfRestClients.Services
             var request = HttpUtility.ParseQueryString(string.Empty);
             request.Set("name", name);
             request.Set("ts", ts);
-            request.Set("apikey", "295fe85fa0d9c2aad016f22522177752");
-            request.Set("hash", CreateHash(ts, "295fe85fa0d9c2aad016f22522177752", "1f85b14d20cad3d3253510f53514c31cafea5bdc"));
+            request.Set("apikey", _config.ApiKey);
+            request.Set("hash", CreateHash(ts, _config.ApiKey, _config.PrivateKey));
 
             var result = _client.GetAsync(_client.BaseAddress + request.ToString()).Result;
             if (result.IsSuccessStatusCode)
@@ -34,7 +37,7 @@ namespace BattleOfRestClients.Services
                 return null;
         }
 
-        public string CreateHash(string ts, string publicKey, string privateKey)
+        private string CreateHash(string ts, string publicKey, string privateKey)
         {
             var bytes = Encoding.UTF8.GetBytes(ts + privateKey + publicKey);
             var gerador = MD5.Create();
