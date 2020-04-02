@@ -19,13 +19,15 @@ namespace BattleOfRestClients.Controllers
         private readonly IHttpClientExample _httpClient;
         private readonly IWebClientExample _webClient;
         private readonly IRestEaseExample _restEase;
-        public HomeController(IOptions<MarvelConfig> config, IRestSharpExample restSharp, IHttpClientExample httpClient, IWebClientExample webClient, IRestEaseExample restEase)
+        private readonly IFlurlExample _flurl;
+        public HomeController(IOptions<MarvelConfig> config, IRestSharpExample restSharp, IHttpClientExample httpClient, IWebClientExample webClient, IRestEaseExample restEase, IFlurlExample flurl)
         {
             _config = config.Value;
             _webClient = webClient;
             _restSharp = restSharp;
             _httpClient = httpClient;
             _restEase = restEase;
+            _flurl = flurl;
         }
         public IActionResult Index()
         {
@@ -41,7 +43,7 @@ namespace BattleOfRestClients.Controllers
         [Route("HttpClient")]
         public IActionResult HttpClient()
         {
-            var hero =  _httpClient.GetHero("Hulk");
+            var hero = _httpClient.GetHero("Hulk");
             return View("Hero", hero);
         }
         [Route("WebClient")]
@@ -54,6 +56,12 @@ namespace BattleOfRestClients.Controllers
         public IActionResult RestEase()
         {
             var hero = _restEase.GetHero("Wolverine");
+            return View("Hero", hero);
+        }
+        [Route("Flurl")]
+        public IActionResult Flurl()
+        {
+            var hero = _flurl.GetHero("Vision");
             return View("Hero", hero);
         }
 

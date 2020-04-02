@@ -33,6 +33,7 @@ namespace BattleOfRestClients
             services.AddScoped<IWebClientExample, WebClientExample>();
             services.AddScoped<IRestSharpExample, RestSharpExample>();
             services.AddScoped<IHttpClientExample, HttpClientExample>();
+            services.AddScoped<IFlurlExample, FlurlExample>();
 
             services.Configure<CookiePolicyOptions>(options =>
             {
